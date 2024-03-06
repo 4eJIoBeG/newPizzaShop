@@ -1,5 +1,8 @@
+import { Route, Routes } from "react-router-dom";
 import Button from "./components/Button/Button";
 import Input from "./components/Input/Input";
+import Menu from "./pages/Menu/Menu";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   return (
@@ -9,6 +12,14 @@ function App() {
         Кнопка
       </Button>
       <Input placeholder="E-Mail" />
+      <div>
+        <a href="/">Меню</a>
+        <a href="/cart">Корзина</a>
+      </div>
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </>
   );
 }
