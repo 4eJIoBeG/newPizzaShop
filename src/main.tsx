@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+// import { RouterProvider, createBrowserRouter, defer } from "react-router-dom";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Cart from "./pages/Cart/Cart";
 import Error from "./pages/Error/Error";
@@ -33,6 +34,12 @@ const router = createBrowserRouter([
         element: <Product />,
         errorElement: <>Ошибка</>,
         loader: async ({ params }) => {
+          // return defer({
+          //   data: axios
+          //     .get(`${PREFIX}/products/${params.id}`)
+          //     .then((data) => data)
+          //     .catch((error) => console.log(error.message)),
+          // });
           const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
           return data;
         },
