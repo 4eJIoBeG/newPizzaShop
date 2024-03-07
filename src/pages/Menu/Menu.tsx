@@ -5,17 +5,14 @@ import styles from "./Menu.module.css";
 import { PREFIX } from "../../helpers/API";
 import { Product } from "../../interfaces/product.interface";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Menu = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const getMenu = async () => {
     try {
-      const response = await fetch(`${PREFIX}/products`);
-      if (!response.ok) {
-        return;
-      }
-      const data = (await response.json()) as Product[];
+      const { data } = await axios.get<Product[]>(`${PREFIX}/products`);
       setProducts(data);
     } catch (error) {
       console.error(error);
