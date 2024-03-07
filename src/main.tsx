@@ -9,6 +9,9 @@ import { Layout } from "./layout/Menu/Layout";
 import Product from "./components/Product/Product";
 import axios from "axios";
 import { PREFIX } from "./helpers/API";
+import AuthLayout from "./layout/Auth/Auth.layout";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 const Menu = lazy(() => import("./pages/Menu/Menu"));
 
@@ -46,6 +49,21 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
+  },
+
   {
     path: "*",
     element: <Error />,

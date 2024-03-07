@@ -8,7 +8,7 @@ export const Layout = () => {
     <div className={styles["layout"]}>
       <div className={styles["sidebar"]}>
         <div className={styles["user"]}>
-          <img className={styles["avatar"]} src="/avatar.jpg" alt="avatar" />
+          <img className={styles["avatar"]} src="/scp.png" alt="avatar" />
           <div className={styles["name"]}>SCP Foundation</div>
           <div className={styles["email"]}>SCP@Foundation.com</div>
         </div>
