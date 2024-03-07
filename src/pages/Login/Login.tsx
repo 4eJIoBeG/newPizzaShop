@@ -1,22 +1,53 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import Input from "../../components/Input/Input";
 import styles from "./Login.module.css";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { PREFIX } from "../../helpers/API";
+import { LoginResponse } from "../../interfaces/auth.interface";
+
+export type LoginForm = {
+  email: { value: string };
+  password: { value: string };
+};
 
 const Login = () => {
-  const submit = (event: FormEvent) => {
+  const [error, setError] = useState<string | null>();
+  const navigate = useNavigate();
+
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(event);
+    setError(null);
+    const target = event.target as typeof event.target & LoginForm;
+    const { email, password } = target;
+    await sendLogin(email.value, password.value);
   };
+
+  const sendLogin = async (email: string, password: string) => {
+    try {
+      const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
+        email,
+        password,
+      });
+      localStorage.setItem("jwt", data.access_token);
+      navigate("/");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.response?.data.message);
+      }
+    }
+  };
+
   return (
     <div className={styles["login"]} onSubmit={submit}>
       <Header>Вход</Header>
+      {error && <div className={styles["error"]}>{error}</div>}
       <form className={styles["form"]}>
         <div className={styles["field"]}>
           <label htmlFor="email">Ваш Еmail</label>
-          <Input id="email" name="email" placeholder="Email" />
+          <Input id="email" type="email" name="email" placeholder="Email" />
         </div>
         <div className={styles["field"]}>
           <label htmlFor="password">Ваш пароль</label>
