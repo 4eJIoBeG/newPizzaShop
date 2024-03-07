@@ -3,7 +3,7 @@ import styles from "./ProductCard.module.css";
 import { ProductCardProps } from "./ProductCard.props";
 
 const ProductCard = (props: ProductCardProps) => {
-  const { id, title, price, description, rating, image } = props;
+  const { id, name, price, description, rating, image } = props;
   return (
     <Link to={`/product/${id}`} className={styles["link"]}>
       <div className={styles["card"]}>
@@ -24,7 +24,7 @@ const ProductCard = (props: ProductCardProps) => {
           </div>
         </div>
         <div className={styles["info"]}>
-          <div className={styles["title"]}>{title}</div>
+          <div className={styles["title"]}>{name}</div>
           <div className={styles["description"]}>{description}</div>
         </div>
       </div>
