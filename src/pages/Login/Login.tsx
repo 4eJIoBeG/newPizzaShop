@@ -36,7 +36,6 @@ const Login = () => {
         password,
       });
       dispatch(userActions.addJwt(data.access_token));
-      localStorage.setItem("jwt", data.access_token);
       navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
