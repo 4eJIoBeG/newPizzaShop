@@ -61,7 +61,7 @@
   align-items: center;
   justify-content: center;
   background: var(--primary-color);
-  border: 1px solid;
+  border: none;
   border-radius: 50%;
   width: 29px;
   height: 29px;
