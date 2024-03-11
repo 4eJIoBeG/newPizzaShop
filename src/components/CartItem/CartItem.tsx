@@ -9,13 +9,13 @@ const CartItem = (props: CartItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const remove = () => {
-    dispatch(cartActions.remove(id));
+    dispatch(cartActions.delete(id));
   };
   const decrease = () => {
-    dispatch(cartActions.decrease(id));
+    dispatch(cartActions.remove(id));
   };
   const increase = () => {
-    dispatch(cartActions.increase(id));
+    dispatch(cartActions.add(id));
   };
 
   return (
@@ -26,13 +26,13 @@ const CartItem = (props: CartItemProps) => {
       ></div>
       <div className={styles["description"]}>
         <div className={styles["name"]}>{name}</div>
-        <span className={styles["currency"]}>{price}&nbsp;₽</span>
+        <span className={styles["price"]}>{price}&nbsp;₽</span>
       </div>
       <div className={styles["actions"]}>
         <button className={styles["decrease"]} onClick={decrease}>
           <img src="/minus.svg" alt="decrease-item" />
         </button>
-        <div>{count}</div>
+        <div className={styles["counter"]}>{count}</div>
         <button className={styles["increase"]} onClick={increase}>
           <img src="/plus.svg" alt="increase-item" />
         </button>

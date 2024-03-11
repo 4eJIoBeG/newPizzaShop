@@ -16,6 +16,26 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    delete: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+    },
+    remove: (state, action: PayloadAction<number>) => {
+      const existed = state.items.find((idx) => idx.id === action.payload);
+      if (!existed) {
+        return;
+      }
+      if (existed.count === 1) {
+        state.items = state.items.filter((item) => item.id !== action.payload);
+      } else {
+        state.items.map((item) => {
+          if (item.id === action.payload) {
+            item.count -= 1;
+          }
+          return item;
+        });
+        return;
+      }
+    },
     add: (state, action: PayloadAction<number>) => {
       const existed = state.items.find((idx) => idx.id === action.payload);
       if (!existed) {
