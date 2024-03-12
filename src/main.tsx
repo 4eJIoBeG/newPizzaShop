@@ -1,7 +1,6 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import { RouterProvider, createBrowserRouter, defer } from "react-router-dom";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Cart from "./pages/Cart/Cart";
 import Error from "./pages/Error/Error";
@@ -15,8 +14,8 @@ import Register from "./pages/Register/Register";
 import RequireAuth from "./helpers/RequireAuth";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-
-const Menu = lazy(() => import("./pages/Menu/Menu"));
+import Success from "./pages/Success/Success";
+import Menu from "./pages/Menu/Menu";
 
 const router = createBrowserRouter([
   {
@@ -44,15 +43,13 @@ const router = createBrowserRouter([
         element: <Product />,
         errorElement: <>Ошибка</>,
         loader: async ({ params }) => {
-          // return defer({
-          //   data: axios
-          //     .get(`${PREFIX}/products/${params.id}`)
-          //     .then((data) => data)
-          //     .catch((error) => console.log(error.message)),
-          // });
           const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
           return data;
         },
+      },
+      {
+        path: "/success",
+        element: <Success />,
       },
     ],
   },
